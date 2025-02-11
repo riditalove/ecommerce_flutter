@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final inputBorder = const OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.white12),
+      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+    );
+
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Text(
+                      "Book\nList",
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40.0,
+                      ),
+                    ),
+                  ),
+                  Expanded(child: _SearchBar(inputBorder)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SearchBar extends StatelessWidget {
+  final OutlineInputBorder inputBorder;
+  const _SearchBar(this.inputBorder);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: 'Search',
+        prefixIcon: const Icon(Icons.search),
+        border: inputBorder,
+        enabledBorder: inputBorder,
+      ),
+    );
+  }
+}
