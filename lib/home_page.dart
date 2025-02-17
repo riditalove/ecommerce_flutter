@@ -1,44 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:shop_app_flutter/pages/cart_page.dart';
+import 'package:shop_app_flutter/widgets/product_list.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentPage = 0;
+
+  List<Widget> pages = const [ProductList(), CartPage()];
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        // SafeArea ignores the top notch and the bottom notch as well
-        body: SafeArea(
-      child: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(18.0),
-                  child: Text(
-                    "Employee\nList",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0,
-                    ),
-                  ),
-                ),
-                // expanded is better than sizeBox, expanded is
-                // quite handy for different device size, we don't have to hardcore define the pixel of the width
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search',
-                    ),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
+    return Scaffold(
+      body: IndexedStack(
+        index: currentPage,
+        children: pages,
       ),
-    ));
+      bottomNavigationBar: BottomNavigationBar(
+        iconSize: 35,
+        selectedFontSize: 0,
+        unselectedFontSize: 0,
+        onTap: (value) {
+          setState(() {
+            currentPage = value;
+          });
+        },
+        currentIndex: currentPage,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: '',
+          ),
+        ],
+      ),
+    );
   }
 }
